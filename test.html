@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum totam reiciendis dicta pariatur. Delectus, necessitatibus
+voluptas recusandae natus perspiciatis doloribus, assumenda expedita sed possimus dolorum eum voluptate esse numquam
+placeat.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus ea omnis, perferendis accusantium maiores, distinctio ex
+ipsa dignissimos qui velit voluptatibus cupiditate temporibus magni commodi ratione repellendus nemo officia tempora.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas assumenda pariatur officia, voluptas itaque dicta impedit
+temporibus facilis corrupti, soluta est numquam enim? Quidem delectus amet nisi velit ipsum debitis!
+
+
+<body>
+    <input type="text" class="input" name="" id="">
+    <button onclick="handlesubmit()">submit</button>
+</body>
+<script src=" https://cdn.socket.io/4.7.5/socket.io.min.js"
+    integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
+    crossorigin="anonymous"></script>
+
+<script>
+    let socket = io("http://127.0.0.1:9000");
+    socket.on("msg", (data) => {
+        console.log(data);
+    })
+    function handlesubmit() {
+        console.log("came here")
+        let value = document.querySelector(".input").value;
+        socket.emit("msg", value);
+    }
+</script>
+
+</html>
