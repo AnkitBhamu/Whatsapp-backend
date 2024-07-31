@@ -25,7 +25,7 @@ app.use(cors());
 let httpserver = createServer();
 let io = new Server(httpserver, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://192.168.1.11:3000",
   },
 });
 
@@ -34,7 +34,7 @@ httpserver.listen(9000, () => {
   console.log("http server is listening on port 9000!!");
 });
 
-// listen on another http serrvver made by aPP
+// listen on another http serrver made by aPP
 app.listen(8080, () => {
   console.log("App is listeming on port 8080!!");
 });
@@ -96,12 +96,28 @@ io.on("connection", (socket) => {
   });
 
   // first do this
-  send_pending_messages(socket);
+  // send_pending_messages(socket);
 
   socket.on("msg", (msg) => {
     console.log("got the message!!", msg);
     sendmsgTouser(msg);
   });
+
+  socket.on("video-offer",(offer)=>{
+    console.log("we got the video offer!!");
+    socket.broadcast.emit("offers",offer);
+  })
+
+  socket.on("video-answer",(video_answer)=>{
+    console.log("we got the video-answer!!");
+    socket.broadcast.emit("video-answer",video_answer);
+  })
+
+  socket.on("ice-candidate",(cand)=>{
+    console.log("we got ice candidate!!")
+    socket.broadcast.emit("ice-candidate",cand);
+  })
+
 });
 
 // express app settings
