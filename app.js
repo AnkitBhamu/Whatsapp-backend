@@ -49,7 +49,7 @@ async function send_pending_messages(sock) {
       { mobile: mobile },
       {
         pendingmsgs: [],
-      }
+      },
     );
     console.log("pending_msgs are : ", msgs.pendingmsgs);
     sock.emit("pending_msgs", msgs.pendingmsgs);
@@ -71,7 +71,7 @@ async function sendmsgTouser(msg) {
       { mobile: msg.receiver },
       {
         $push: { pendingmsgs: msg },
-      }
+      },
     );
   }
 }
@@ -89,7 +89,7 @@ io.on("connection", (socket) => {
       "socket with mobile : ",
       socket.handshake.auth.mobile,
       "disconnected for reason : ",
-      reason
+      reason,
     );
     conn_clients.delete(socket.handshake.auth.mobile);
     console.log("connected clients length : ", conn_clients.size);
@@ -103,21 +103,20 @@ io.on("connection", (socket) => {
     sendmsgTouser(msg);
   });
 
-  socket.on("video-offer",(offer)=>{
+  socket.on("video-offer", (offer) => {
     console.log("we got the video offer!!");
-    socket.broadcast.emit("offers",offer);
-  })
+    socket.broadcast.emit("offers", offer);
+  });
 
-  socket.on("video-answer",(video_answer)=>{
+  socket.on("video-answer", (video_answer) => {
     console.log("we got the video-answer!!");
-    socket.broadcast.emit("video-answer",video_answer);
-  })
+    socket.broadcast.emit("video-answer", video_answer);
+  });
 
-  socket.on("ice-candidate",(cand)=>{
-    console.log("we got ice candidate!!")
-    socket.broadcast.emit("ice-candidate",cand);
-  })
-
+  socket.on("ice-candidate", (cand) => {
+    console.log("we got ice candidate!!");
+    socket.broadcast.emit("ice-candidate", cand);
+  });
 });
 
 // express app settings
