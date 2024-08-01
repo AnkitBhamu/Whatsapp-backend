@@ -25,7 +25,7 @@ app.use(cors());
 let httpserver = createServer();
 let io = new Server(httpserver, {
   cors: {
-    origin: "http://192.168.1.11:3000",
+    origin: "http://localhost:3000",
   },
 });
 
@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
   });
 
   // first do this
-  // send_pending_messages(socket);
+  send_pending_messages(socket);
 
   socket.on("msg", (msg) => {
     console.log("got the message!!", msg);
